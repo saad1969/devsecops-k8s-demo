@@ -18,6 +18,15 @@ pipeline {
               jacoco execPattern: 'target/jacoco.exec'
             }
           }
+        }
+        stage('Docker Build and Push') {
+          steps {
+            withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
+              sh 'printenv'
+              sh 'docker build -t saad1969/numeric-app:""$GIT_COMMIT"" .'
+              sh 'docker push saad1969/numeric-app:""$GIT_COMMIT""'
+            }
+          }
         }      
     }
 }
