@@ -22,13 +22,24 @@ pipeline {
       }
     }
 
+    stage('Mutation Tests - PIT') {
+      steps {
+        sh "mvn org.pitest:pitest-maven:mutationCoverage"
+      }
+      post {
+        always {
+          pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+        }
+      }
+    }
+
     stage('Docker Build and Push') {
       steps {
         withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
           sh 'printenv'
           sh 'docker build -t saad1969/numeric-app:""$GIT_COMMIT"" .'
           sh 'docker push saad1969/numeric-app:""$GIT_COMMIT""'
-        }
+        }   
       }
     }
 
@@ -39,6 +50,6 @@ pipeline {
           sh "kubectl apply -f k8s_deployment_service.yaml"
         }
       }
-    }
+    }t a
   }
 }
