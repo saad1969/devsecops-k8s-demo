@@ -22,17 +22,6 @@ pipeline {
       }
     }
 
-    stage('Mutation Tests - PIT') {
-      steps {
-        sh "mvn org.pitest:pitest-maven:mutationCoverage"
-      }
-      post {
-        always {
-          pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-        }
-      }
-    }
-
     stage('SonarQube - SAST') {
       steps {
         sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecopse.eastus.cloudapp.azure.com:9000 -Dsonar.login=15ed4690063efc60b143090f5a4a225018176cd4"
