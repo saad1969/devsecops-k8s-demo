@@ -18,6 +18,9 @@ pipeline {
             always {
               junit 'target/surefire-reports/*.xml'
               jacoco execPattern: 'target/jacoco.exec'
+            }
+          }
+      }  
 
       stage('Docker Build and Push') {
         steps {
