@@ -35,7 +35,7 @@ pipeline {
 
       stage('SonarQube - SAS') {
         steps {
-          sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-demo111.brazilsouth.cloudapp.azure.com:9000 -Dsonar.login=6b74acb6b7f436d291ba49bf9ebb4107d96cae4f"
+          sh "mvn clean verify sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://devsecops-demo111.brazilsouth.cloudapp.azure.com:9000 -Dsonar.login=fa8dbffc0ffcd199ab022f9adfdd27494a19cb17"
         }
       }
 
