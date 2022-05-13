@@ -10,7 +10,6 @@ pipeline {
       }
     }
 
-
     stage('Unit Tests - JUnit and JaCoCo') {
       steps {
         sh "mvn test"
