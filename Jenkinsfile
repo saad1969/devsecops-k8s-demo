@@ -9,7 +9,7 @@ pipeline {
         archive 'target/*.jar'
       }
     }
-    
+
 
     stage('Unit Tests - JUnit and JaCoCo') {
       steps {
@@ -43,6 +43,17 @@ pipeline {
             script {
               waitForQualityGate abortPipeline: true
           }
+        }
+      }
+    }
+
+    stage('Vulnerability Scan - Docker ') {
+      steps {
+        sh "mvn dependency-check:check"
+      }
+      post {
+        always {
+          dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
         }
       }
     }
