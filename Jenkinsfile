@@ -105,8 +105,6 @@ pipeline {
         }
       }
 
-    }
-
     stage('Integration Tests - DEV') {
       steps {
         script {
@@ -134,4 +132,4 @@ pipeline {
           dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
         }
       }
-}
+} 
