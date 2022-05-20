@@ -6,7 +6,7 @@ pipeline {
     containerName = "devsecops-container"
     serviceName = "devsecops-svc"
     imageName = "saad1969/numeric-app:${GIT_COMMIT}"
-    applicationURL = "devsecops-demo111.brazilsouth.cloudapp.azure.com/"
+    applicationURL = "devsecops-demo111.brazilsouth.cloudapp.azure.com"
     applicationURI = "/increment/99"
   }
 
@@ -83,9 +83,6 @@ pipeline {
           },
           "Kubesec Scan": {
             sh "bash kubesec-scan.sh"
-          },
-          "Trivy Scan": {
-            sh "bash trivy-k8s-scan.sh"
           }
         )
       }
@@ -109,6 +106,25 @@ pipeline {
       }
 
     }
+
+    stage('Integration Tests - DEV') {
+      steps {
+        script {
+          try {
+            withKubeConfig([credentialsId: 'kubeconfig']) {
+              sh "bash integration-test.sh"
+            }
+          } catch (e) {
+            withKubeConfig([credentialsId: 'kubeconfig']) {
+              sh "kubectl -n default rollout undo deploy ${deploymentName}"
+            }
+            throw e
+          }
+        }
+      }
+    }
+
+  }
 
   post {
         always {
