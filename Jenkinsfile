@@ -129,7 +129,7 @@ pipeline {
             }
           }
         }
-        
+
     stage('K8S Deployment - PROD') {
       steps {
         parallel(
@@ -147,6 +147,7 @@ pipeline {
         )
       }
     }
+  }
 
   post {
         always {
