@@ -147,7 +147,6 @@ pipeline {
         )
       }
     }
-  }
   
     stage('Integration Tests - PROD') {
           steps {
