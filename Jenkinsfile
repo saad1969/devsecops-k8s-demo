@@ -45,7 +45,4 @@ pipeline {
     // }
   }
 
-
-######### Jenkinsfile - Add Slack Notification in Post Succes #########
-
 }
